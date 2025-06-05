@@ -13,24 +13,43 @@ public class StackNode<T> implements Stack<T> {
     /**
      * Create an empty stack.
      */
+    private static class Node<T> {
+        T data;
+        Node<T> next;
+        Node(T data, Node<T> next){
+            this.data = data;
+            this.next = next;
+        }
+    }
+
+    private Node<T> top;
+
     public StackNode() {
+        this.top = null;
     }
 
     @Override
     public boolean empty() {
-        return false;
+        return top == null;
     }
 
     @Override
     public T pop() {
-        return null;
+        assert !empty();
+        T value = top.data;
+        top = top.next;
+        return value;
     }
 
     @Override
-    public void push(T element) {}
+    public void push(T element) {
+        top = new Node<>(element, top);
+    }
 
     @Override
     public T top() {
-        return null;
+
+        assert !empty();
+        return top.data;
     }
 }
